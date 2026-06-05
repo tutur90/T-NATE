@@ -44,9 +44,7 @@ These are compared against MLP / T-MLP Q-networks, an NSGA-II / NPGA neuroevolut
 and Random / Greedy / Round-Robin heuristics, across three topologies of increasing scale.
 
 <p align="center">
-  <img src="docs/figs/NATE_architecture.png" width="46%" alt="NATE architecture">
-  &nbsp;&nbsp;
-  <img src="docs/figs/T-NATE_architecture.png" width="46%" alt="T-NATE architecture">
+  <img src="docs/figs/NATE_architecture.png" width="49%" alt="NATE architecture"><img src="docs/figs/T-NATE_architecture.png" width="49%" alt="T-NATE architecture">
 </p>
 <p align="center"><em>NATE (left) encodes node resources; T-NATE (right) additionally conditions on task attributes.</em></p>
 
