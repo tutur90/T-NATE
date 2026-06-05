@@ -27,6 +27,10 @@ rather than the binary "edge vs. cloud" choice common in prior work. Decisions a
 multi-objective reward combining task drop rate (TDR), latency, and energy, weighted by
 `(λ₀, λ₁, λ₂)`.
 
+<p align="center">
+  <img src="docs/figs/system_architecture.png" width="640" alt="Three-tier edge–fog–cloud system architecture">
+</p>
+
 The two proposed architectures are Transformer-based Q-networks:
 
 - **NATE** — *Node-Aware Transformer Encoder.* Encodes each node's resource state (CPU,
@@ -38,6 +42,13 @@ The two proposed architectures are Transformer-based Q-networks:
 
 These are compared against MLP / T-MLP Q-networks, an NSGA-II / NPGA neuroevolution baseline,
 and Random / Greedy / Round-Robin heuristics, across three topologies of increasing scale.
+
+<p align="center">
+  <img src="docs/figs/NATE_architecture.png" width="46%" alt="NATE architecture">
+  &nbsp;&nbsp;
+  <img src="docs/figs/T-NATE_architecture.png" width="46%" alt="T-NATE architecture">
+</p>
+<p align="center"><em>NATE (left) encodes node resources; T-NATE (right) additionally conditions on task attributes.</em></p>
 
 ---
 
