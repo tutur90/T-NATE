@@ -103,6 +103,10 @@ python main.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml \
 Searches are resumable and backed by Optuna. See
 [`docs/hparam_search.md`](docs/hparam_search.md) for the design.
 
+> **Reproducing the paper.** [`docs/REPRODUCE.md`](docs/REPRODUCE.md) maps every
+> table and figure to its config and command, including the scenario → config
+> mapping (Pakistan 8N/20N, Synthetic 50N).
+
 ### Multi-seed evaluation
 
 Report aggregate mean ± std over several seeds (resumable — completed seeds are skipped):
