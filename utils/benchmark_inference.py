@@ -26,7 +26,6 @@ from utils.dql import run_epoch
 from utils.utils import create_env, set_seed
 
 GA_ALGOS  = ["NPGA", "NSGA2"]
-PPO_ALGOS = ["PPO"]
 
 
 def find_latest_checkpoint(dataset: str, flag: str, policy_name: str, ext: str = ".pt") -> str | None:
@@ -104,10 +103,6 @@ def run_inference(config: dict, policy, test_data: pd.DataFrame) -> tuple[list[f
         act_times = [total / n] * n
         return act_times, True
 
-    elif algo in PPO_ALGOS:
-        from utils.ppo import run_epoch_ppo
-        env = run_epoch_ppo(config, policy, test_data, train=False)
-        env.close()
     else:
         env = run_epoch(config, policy, test_data, train=False)
         env.close()

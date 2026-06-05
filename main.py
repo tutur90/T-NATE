@@ -26,7 +26,6 @@ from core.vis.vis_stats import VisStats
 from eval.metrics.metrics import SuccessRate, AvgLatency
 from policies import policies
 from utils.dql import run_epoch
-from utils.ppo import run_epoch_ppo
 from utils.GA import run_generation
 
 from utils.utils import create_env, error_handler, set_seed, update_metrics
@@ -38,7 +37,6 @@ from utils.grid_search import (
 )
 
 GA_ALGOS  = ["NPGA", "NSGA2"]
-PPO_ALGOS = ["PPO"]
 
 
 def train(config, policy, train_data, valid_data, logger, checkpoint):
@@ -77,13 +75,6 @@ def train(config, policy, train_data, valid_data, logger, checkpoint):
             # Cache fitness for next generation (these are the selected individuals)
             cached_fitness = result.fitness
             result.close()
-        elif config["algo"] in PPO_ALGOS:
-            env = run_epoch_ppo(config, policy, train_data, train=True)
-            update_metrics(logger, env, config)
-            env.close()
-            logger.update_metric('AvgLoss', policy.avg_loss)
-            logger.update_metric('AvgGradNorm', policy.avg_grad_norm)
-            logger.update_metric('AvgReward', policy.avg_reward)
         else:
             env = run_epoch(config, policy, train_data, train=True)
             update_metrics(logger, env, config)
@@ -91,15 +82,6 @@ def train(config, policy, train_data, valid_data, logger, checkpoint):
             logger.update_metric('AvgLoss', policy.avg_loss)
             logger.update_metric('AvgGradNorm', policy.avg_grad_norm)
             logger.update_metric('AvgReward', policy.avg_reward)
-
-        if hasattr(policy, 'lstm_stats_summary'):
-            s = policy.lstm_stats_summary()
-            print(f"  [OPO epoch {epoch+1}] "
-                  f"exploit={s['exploit_%']:.1f}% "
-                  f"lstm_guided={s['lstm_guided_%']:.1f}% "
-                  f"random={s['random_%']:.1f}% | "
-                  f"load_loss={s['avg_load_lstm_loss']:.4f} "
-                  f"task_loss={s['avg_task_lstm_loss']:.4f}")
 
         epoch_time = time.time() - epoch_start
         logger.update_metric('TimePerTask', epoch_time / len(train_data))
@@ -114,10 +96,6 @@ def train(config, policy, train_data, valid_data, logger, checkpoint):
             result = run_generation(config, policy, valid_data, train=False)
             score = update_metrics(logger, None, config, metrics=tuple(result.best_metrics))
             result.close()
-        elif config["algo"] in PPO_ALGOS:
-            env = run_epoch_ppo(config, policy, valid_data, train=False)
-            score = update_metrics(logger, env, config)
-            env.close()
         else:
             env = run_epoch(config, policy, valid_data, train=False)
             score = update_metrics(logger, env, config)
@@ -182,11 +160,6 @@ def main(config):
         val_metrics = train(config, policy, train_data, valid_data, logger, checkpoint)
         checkpoint.load(policy, logger.best_epoch)
 
-        if hasattr(policy, 'lstm_stats_summary'):
-            import pprint
-            print("\n── OPO LSTM stats (training) ──")
-            pprint.pprint(policy.lstm_stats_summary())
-
     # Testing phase.
 
     logger.update_mode('Testing')
@@ -195,17 +168,9 @@ def main(config):
         result = run_generation(config, policy, test_data, train=False)
         test_metrics = update_metrics(logger, None, config, metrics=tuple(result.best_metrics))
         env = result  # for close() compatibility below
-    elif config["algo"] in PPO_ALGOS:
-        env = run_epoch_ppo(config, policy, test_data, train=False)
-        test_metrics = update_metrics(logger, env, config)
     else:
         env = run_epoch(config, policy, test_data, train=False)
         test_metrics = update_metrics(logger, env, config)
-
-    if hasattr(policy, 'lstm_stats_summary'):
-        import pprint
-        print("\n── OPO LSTM stats (training + testing) ──")
-        pprint.pprint(policy.lstm_stats_summary())
 
     logger.plot()
     logger.save_csv()

@@ -53,18 +53,13 @@ Policies are registered in [`policies/__init__.py`](policies/__init__.py) and se
 | `Greedy` | Heuristic | Offload to the node with the most available resources. |
 | `RoundRobin` | Heuristic | Offload to nodes in round-robin order. |
 | `MLP` / `T-MLP` | DQL | Deep Q-learning with an MLP Q-network (`T-` = task-aware input). |
-| `DuelingMLP` | DQL | MLP Q-network with a dueling (value + advantage) head. |
-| `NOTE` / `T-NOTE` | DQL | Node Offloading Transformer Encoder. |
-| `DuelingNOTE` | DQL | NOTE with a dueling head. |
-| `NATE` / `T-NATE` | DQL | Node- And Task-aware transformer Encoder. |
+| `NATE` / `T-NATE` | DQL | Node- And Task-aware Transformer Encoder (`T-` = task-aware). |
 | `CT-NATE` | DQL | Conditional (task-modulated) NATE variant. |
-| `OPO` | DQL | LSTM-guided exploration policy. |
 | `NPGA` | GA | Niched Pareto Genetic Algorithm. |
-| `NSGA2` | GA | Non-dominated Sorting Genetic Algorithm II. |
-| `TPTO` | PPO | Transformer-based actor-critic (PPO). |
+| `NSGA2` | GA | Non-dominated Sorting Genetic Algorithm II (NSGA-II). |
 
 The neural architectures live in [`policies/model/`](policies/model); the training logic for
-each family is in `utils/dql.py` (DQL), `utils/GA.py` (GA), and `utils/ppo.py` (PPO).
+each family is in `utils/dql.py` (DQL) and `utils/GA.py` (GA).
 
 ---
 
@@ -135,9 +130,8 @@ core/            Discrete-event simulator: tasks, environment, infrastructure, l
   vis/           Post-simulation visualisation
 policies/        Offloading policies
   heuristics/    Random, Greedy, RoundRobin
-  dql/           Deep Q-learning policies (MLP, NOTE, NATE, CT-NATE, OPO, ...)
+  dql/           Deep Q-learning policies (MLP, NATE, CT-NATE)
   ga/            Genetic-algorithm policies (NSGA-II, NPGA)
-  ppo/           PPO policy (TPTO)
   model/         Neural network architectures
 eval/            Benchmark datasets and metrics
 configs/         YAML run configs, grouped by dataset / flag / family
