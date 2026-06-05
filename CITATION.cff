@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the article below."
+title: "Task-Offloading-Fog: NATE and T-NATE"
+abstract: >-
+  A reinforcement-learning and genetic-algorithm framework for IoT task
+  offloading in edge-fog-cloud computing, accompanying the paper
+  "NATE and T-NATE: Efficient transformers for IoT task offloading in
+  edge-fog-cloud computing".
+authors:
+  - family-names: Garon
+    given-names: Arthur
+    email: arthur.garon@gmail.com
+  - family-names: Yassa
+    given-names: Sonia
+  - family-names: Alouache
+    given-names: Lylia
+repository-code: "https://github.com/tutur90/T-NATE"
+license: MIT
+type: software
+preferred-citation:
+  type: article
+  title: "NATE and T-NATE: Efficient transformers for IoT task offloading in edge-fog-cloud computing"
+  authors:
+    - family-names: Garon
+      given-names: Arthur
+    - family-names: Yassa
+      given-names: Sonia
+    - family-names: Alouache
+      given-names: Lylia
+  journal: "Sustainable Computing: Informatics and Systems"
+  volume: 51
+  start: 101392
+  year: 2026
+  issn: "2210-5379"
+  doi: "10.1016/j.suscom.2026.101392"
+  url: "https://www.sciencedirect.com/science/article/pii/S2210537926001022"

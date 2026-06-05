@@ -32,7 +32,7 @@ Main dependencies: `networkx`, `simpy`, `numpy`, `pandas`, `torch`, `matplotlib`
 Everything runs through [`main.py`](main.py), which is driven by a single YAML config file:
 
 ```bash
-python main.py configs/Pakistan/Tuple100k/DQL/NATE.yaml
+python main.py configs/Pakistan/Tuple100K/DQL/NATE.yaml
 ```
 
 A config selects the policy, the dataset/scenario, and all training/evaluation
@@ -68,7 +68,7 @@ each family is in `utils/dql.py` (DQL) and `utils/GA.py` (GA).
 Configs are organised as `configs/<dataset>/<flag>/<family>/<policy>.yaml`. The bundled
 datasets (under [`eval/benchmarks/`](eval/benchmarks)) are:
 
-- **Pakistan** — flags `Tuple30k`, `Tuple50k`, `Tuple100k`
+- **Pakistan** — flags `Tuple30K`, `Tuple50K`, `Tuple100K`
 - **Synthetic** — flags `50N100T150D`, `100N100T180D`
 - **Topo4MEC**
 
@@ -85,7 +85,7 @@ multi-objective weights, and the `training`/`model` hyperparameters. See any fil
 Search over any config field with `--search "section.key=v1,v2,..."`:
 
 ```bash
-python main.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml \
+python main.py configs/Pakistan/Tuple100K/DQL/T-NATE.yaml \
     --search "training.lr=1e-4,5e-5,2e-5" "training.batch_size=16,32,64" \
     --sampler qmc --n_samples 32 --num_workers 4 --device cuda
 ```
@@ -107,8 +107,8 @@ Searches are resumable and backed by Optuna. See
 Report aggregate mean ± std over several seeds (resumable — completed seeds are skipped):
 
 ```bash
-python main.py configs/Pakistan/Tuple100k/DQL/NATE.yaml --seeds 42 123 456
-python main.py configs/Pakistan/Tuple100k/DQL/NATE.yaml --n_seeds 8   # shortcut for seeds 0..7
+python main.py configs/Pakistan/Tuple100K/DQL/NATE.yaml --seeds 42 123 456
+python main.py configs/Pakistan/Tuple100K/DQL/NATE.yaml --n_seeds 8   # shortcut for seeds 0..7
 ```
 
 ### Plotting from existing results

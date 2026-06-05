@@ -2,9 +2,9 @@
 Benchmark inference time (policy.act() only) for one or more YAML configs.
 
 Usage:
-    python utils/benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml
+    python utils/benchmark_inference.py configs/Pakistan/Tuple100K/DQL/T-NATE.yaml
     python utils/benchmark_inference.py configs/**/T-*.yaml --single_core
-    python utils/benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml --n_runs 3 --warmup 100 --output results.csv
+    python utils/benchmark_inference.py configs/Pakistan/Tuple100K/DQL/T-NATE.yaml --n_runs 3 --warmup 100 --output results.csv
 """
 
 import argparse

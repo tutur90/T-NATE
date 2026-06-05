@@ -20,12 +20,12 @@ The paper evaluates three topologies. Each maps to one config directory:
 
 | Paper scenario   | `dataset` / `flag`        | Config directory                      | Nodes |
 |------------------|---------------------------|---------------------------------------|-------|
-| Pakistan (8N)    | `Pakistan` / `Tuple30K`   | `configs/Pakistan/Tuple30k/`          | 8     |
-| Pakistan (20N)   | `Pakistan` / `Tuple100K`  | `configs/Pakistan/Tuple100k/`         | 20    |
+| Pakistan (8N)    | `Pakistan` / `Tuple30K`   | `configs/Pakistan/Tuple30K/`          | 8     |
+| Pakistan (20N)   | `Pakistan` / `Tuple100K`  | `configs/Pakistan/Tuple100K/`         | 20    |
 | Synthetic (50N)  | `Synthetic` / `50N100T150D` | `configs/Synthetic/50N100T150D/`    | 50    |
 
-> The `Tuple50k`, `Synthetic/100N100T180D`, and `Topo4MEC` configs are **not** used
-> in the paper (the manuscript explicitly excludes Tuple50k). They are kept for
+> The `Tuple50K`, `Synthetic/100N100T180D`, and `Topo4MEC` configs are **not** used
+> in the paper (the manuscript explicitly excludes Tuple50K). They are kept for
 > completeness but are out of scope for reproduction.
 
 Within each scenario directory, configs are grouped by family:
@@ -59,7 +59,7 @@ field in the Greedy config (`cpu`, `buffer`, or `bw`); the shipped config defaul
 `cpu` (the reference heuristic).
 
 ```bash
-for S in Pakistan/Tuple30k Pakistan/Tuple100k Synthetic/50N100T150D; do
+for S in Pakistan/Tuple30K Pakistan/Tuple100K Synthetic/50N100T150D; do
   for H in Random RoundRobin Greedy; do
     python main.py configs/$S/Heuristics/$H.yaml
   done
@@ -75,7 +75,7 @@ DRL/GA methods reported as mean ± std over 8 seeds (`--n_seeds 8` → seeds `0.
 Run each model in each scenario:
 
 ```bash
-for S in Pakistan/Tuple30k Pakistan/Tuple100k Synthetic/50N100T150D; do
+for S in Pakistan/Tuple30K Pakistan/Tuple100K Synthetic/50N100T150D; do
   for M in MLP NATE T-MLP T-NATE; do
     python main.py configs/$S/DQL/$M.yaml --n_seeds 8
   done
@@ -92,7 +92,7 @@ feasible solutions on Synthetic (50N), as reported.
 The ablation varies the input features of MLP / T-MLP via the `obs_type` list in the
 config (`[cpu]`, `[buffer]`, `[bw]`, `[cpu, bw, buffer]`, `[task]`,
 `[cpu, bw, buffer, task]`). Edit `obs_type` in
-`configs/Pakistan/Tuple30k/DQL/{MLP,T-MLP}.yaml` and run with `--n_seeds 8`.
+`configs/Pakistan/Tuple30K/DQL/{MLP,T-MLP}.yaml` and run with `--n_seeds 8`.
 
 ### Selected reward weights (Table: `tab:selected_lambdas`) and λ ternary plots (Figs. `ternary_*`)
 
@@ -101,8 +101,8 @@ The reward weights are chosen by a grid search over the simplex
 is the number of grid steps (paper: step 0.05 on Pakistan 8N, 0.1 on larger scenarios):
 
 ```bash
-python main.py configs/Pakistan/Tuple30k/DQL/MLP.yaml   --search "lambda=20" --num_workers 8
-python main.py configs/Pakistan/Tuple30k/DQL/T-MLP.yaml --search "lambda=20" --num_workers 8
+python main.py configs/Pakistan/Tuple30K/DQL/MLP.yaml   --search "lambda=20" --num_workers 8
+python main.py configs/Pakistan/Tuple30K/DQL/T-MLP.yaml --search "lambda=20" --num_workers 8
 ```
 
 This writes `lambda_grid_search_progress.json` and the per-scenario ternary plots
@@ -110,7 +110,7 @@ This writes `lambda_grid_search_progress.json` and the per-scenario ternary plot
 re-running:
 
 ```bash
-python main.py configs/Pakistan/Tuple30k/DQL/MLP.yaml --plot lambda
+python main.py configs/Pakistan/Tuple30K/DQL/MLP.yaml --plot lambda
 ```
 
 To produce the combined per-scenario ternary figures across the whole `logs/` tree
@@ -128,7 +128,7 @@ files. The reported settings live directly in each
 search that found them is run with, e.g.:
 
 ```bash
-python main.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml \
+python main.py configs/Pakistan/Tuple100K/DQL/T-NATE.yaml \
     --search "training.lr=1e-4,5e-5,2e-5" "training.batch_size=16,32,64" \
     --sampler qmc --n_samples 32 --num_workers 4 --device cuda
 ```
@@ -136,8 +136,8 @@ python main.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml \
 ### Inference latency (Table: `tab:inference_latency`)
 
 ```bash
-python utils/benchmark_inference.py configs/Pakistan/Tuple30k/DQL/T-NATE.yaml
-python utils/benchmark_inference.py configs/Pakistan/Tuple30k/DQL/T-MLP.yaml
+python utils/benchmark_inference.py configs/Pakistan/Tuple30K/DQL/T-NATE.yaml
+python utils/benchmark_inference.py configs/Pakistan/Tuple30K/DQL/T-MLP.yaml
 ```
 
 (Repeat across scenarios; timings are hardware-dependent.)
@@ -161,7 +161,7 @@ python utils/benchmark_inference.py configs/Pakistan/Tuple30k/DQL/T-MLP.yaml
 To confirm the pipeline runs end-to-end before launching full experiments:
 
 ```bash
-python main.py configs/Pakistan/Tuple30k/Heuristics/Random.yaml
+python main.py configs/Pakistan/Tuple30K/Heuristics/Random.yaml
 ```
 
 This trains nothing (heuristic) and exercises the simulator, logging, metrics, and
