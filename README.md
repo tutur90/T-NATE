@@ -144,6 +144,10 @@ main.py          Single entry point for training / search / evaluation
 
 ---
 
+## License
+
+Released under the [MIT License](LICENSE).
+
 ## Citation & credits
 
 This framework is based on [RayCloudSim](https://github.com/ZhangRui111/RayCloudSim) — refer to
