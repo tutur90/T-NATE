@@ -1,0 +1,64 @@
+policy: "MLP"
+algo: "DQL"
+
+seed: 42
+
+env:
+  dataset: "Synthetic"
+  flag: "50N100T150D"
+  refresh_rate: 0.005
+
+eval:
+  lambda: [1.889e-03, 4.394e+00, 2.605e+02]
+  expected_values: [0.2, 4.0, 300.0]
+
+
+eval:
+    lambda: [0.001889, 4.394, 260.5]
+    expected_values: [0.2, 4.0, 300.0]
+
+
+training:
+  num_epochs: 40
+  learning_starts: 5000    # random steps before learning begins
+  warmup: 0                # LR warmup as ratio of total training steps
+  buffer_size: 50000      # max replay buffer size
+  batch_size: 64          # samples per update
+  target_update_freq: 5000  # >= 1 → hard copy every N grad steps | < 1 → soft update with τ = value
+  update_freq: 1          # steps between policy updates
+  lr: 2.0e-5
+  lr_decay: 1
+  gamma: 0.95
+  # Exploration strategy: "epsilon_greedy" (default), "boltzmann", or "ucb"
+  exploration: {'strategy': 'ucb', explore_value: 0.5 }
+
+  reward:
+    momentum: 0.9995
+    norm: "standard"  # "none", "mean", "ln_mean", "standard", "ln_standard"
+    log1p: true
+    # scale: 1
+    eps: 1.e-1
+    clip: 5.0
+    storage_norm: true
+
+  optimizer:
+    type: "Adam"
+    weight_decay: 0
+
+  lambda: [0.500, 0.4, 0.100]
+  early_stop_patience: 20 # Early stopping patience (generations without improvement)
+  log_freq: 0      # Steps between logging training metrics
+
+model:
+  d_model: 1024
+  n_layers: 2
+  # n_layers: 3
+  # obs_type: ["cpu"]
+  # obs_type: ["cpu", "buffer"]
+  obs_type: ["cpu", "bw", "buffer"]
+  bias: true
+  dropout: 0
+device: auto
+
+
+

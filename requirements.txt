@@ -1,0 +1,19 @@
+networkx
+simpy
+numpy
+pandas
+matplotlib
+seaborn
+tqdm
+plotly
+
+torch
+PyYAML
+scipy
+
+# flash-attn
+
+# Hparams
+optuna
+optuna-dashboard
+cloudpickle

@@ -1,0 +1,15 @@
+.idea/
+__pycache__/
+backup/
+log*/
+.venv/
+test.py
+.vscode/
+.DS_Store
+
+**/.*
+
+!.gitignore
+
+*.sh
+toy_debug.py
