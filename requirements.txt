@@ -1,19 +1,17 @@
-networkx
-simpy
-numpy
-pandas
-matplotlib
-seaborn
-tqdm
+networkx==3.6.1
+simpy==4.1.1
+numpy==2.4.2
+pandas==3.0.0
+matplotlib==3.10.8
+seaborn==0.13.2
+tqdm==4.67.3
 plotly
 
-torch
-PyYAML
-scipy
-
-# flash-attn
+torch==2.10.0
+PyYAML==6.0.3
+scipy==1.17.0
 
 # Hparams
-optuna
-optuna-dashboard
-cloudpickle
+optuna==4.7.0
+optuna-dashboard==0.20.0
+cloudpickle==3.1.2
