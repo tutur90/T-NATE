@@ -2,9 +2,9 @@
 Benchmark inference time (policy.act() only) for one or more YAML configs.
 
 Usage:
-    python benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml
-    python benchmark_inference.py configs/**/T-*.yaml --single_core
-    python benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml --n_runs 3 --warmup 100 --output results.csv
+    python utils/benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml
+    python utils/benchmark_inference.py configs/**/T-*.yaml --single_core
+    python utils/benchmark_inference.py configs/Pakistan/Tuple100k/DQL/T-NATE.yaml --n_runs 3 --warmup 100 --output results.csv
 """
 
 import argparse
@@ -16,6 +16,10 @@ import time
 import numpy as np
 import pandas as pd
 import yaml
+
+# Allow running as a standalone script: utils/ is on sys.path by default, but the
+# repo root is needed to import the first-party packages (policies, utils, core).
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from policies import policies
 from utils.dql import run_epoch
